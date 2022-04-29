@@ -2,11 +2,9 @@
 const Loader = () => {
 
     return (
-        
-        <div className="Loader">
-            <h3>...loading...</h3>
+        <div className="loader">
+            <h1>This is Top Section</h1>
         </div>
-
     );
 }
 

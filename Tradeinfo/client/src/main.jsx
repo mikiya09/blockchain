@@ -5,12 +5,12 @@ import App from './App'
 import './index.css'
 import { TradeinfoProvider } from './context/TradeinfoContext';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
 
+ReactDOM.createRoot(document.getElementById('root')).render(
     <TradeinfoProvider>
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     </TradeinfoProvider>
 
 )

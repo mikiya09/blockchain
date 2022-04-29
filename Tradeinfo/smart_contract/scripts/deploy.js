@@ -1,6 +1,8 @@
 
+
+
 const main = async () => {
-    const Tradeinfo = await hre.ethers.getContractFactory("tradeInfo");
+    const Tradeinfo = await hre.ethers.getContractFactory("tradeinfo");
     const tradeinfo = await Tradeinfo.deploy();
 
     await tradeinfo.deployed();
@@ -13,11 +15,12 @@ const runMain = async () => {
     try {
         await main();
         process.exit(0);
-
-    }   catch(error) {
+    
+    }   catch (error) {
         console.error(error);
         process.exit(1);
     }
 }
 
-runMain();
+
+runMain()
