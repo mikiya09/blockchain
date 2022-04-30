@@ -139,7 +139,7 @@
                 <input 
                     placeholder={placeholder}
                     type={type}
-                    step="0.0001"
+                    step="0.0001"   // this is the up&down button for increase/decrease number with step of 0.0001
                     value={value}
                     onChange={(e) => handleChange(e, name)}
                     className=""
@@ -233,17 +233,6 @@
         runMain();     
         ============================================================================
 
-        >> cd ./smart_contract
-        >> vim hardhat.config.js
-        [add the following]
-
-
-        + run deploy
-        >> npx hardhat run scripts/deploy.js --network ropsten
-
-        + if succeed
-            < grab the contract address >
-
 
 
 # Compile (with hardhat)
@@ -268,7 +257,7 @@
 
         >> cd ./smart_contract
         >> npx hardhat run scripts/deploy.js --network ropsten
-
+        => if success, grab the contract address
 
 
 
@@ -295,7 +284,7 @@
         >> touch constants.js
         // copy the .json file that contain smart contract abi to here -- locate in ./smart_contract/artifacts
         // following naming convention
-        >> cp ./smart_contract/artifacts/contracts/xxx.sol/Xxx.json ../../../../client/src/utils/xxx.sol
+        >> cp ./smart_contract/artifacts/contracts/xxx.sol/xxx.json ../../../../client/src/utils/Yourcontract.sol
     
 
         [add the following to constants.js]
@@ -307,7 +296,7 @@
 
 
 
-# Implementation logic(detail)
+# Communication Implementation logic(detail)
         
         >> cd ./client/src
         >> mkdir context
@@ -338,6 +327,8 @@
                 signer,
                 yourcontractInfo
             });
+
+            return yourinfoContract;
         }
 
 
