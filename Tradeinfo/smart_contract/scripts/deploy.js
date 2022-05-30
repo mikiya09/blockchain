@@ -1,13 +1,14 @@
 
 
-
 const main = async () => {
-    const Tradeinfo = await hre.ethers.getContractFactory("tradeinfo");
-    const tradeinfo = await Tradeinfo.deploy();
+
+    const tradeInfo = await hre.ethers.getContractFactory("tradeInfo");
+    const tradeinfo = await tradeInfo.deploy();
 
     await tradeinfo.deployed();
 
-    console.log("Tradeinfo deployed to: ", tradeinfo.address);
+    console.log("TradeInfo deployed to: ", tradeinfo.address);
+
 }
 
 
@@ -22,5 +23,5 @@ const runMain = async () => {
     }
 }
 
+runMain();
 
-runMain()

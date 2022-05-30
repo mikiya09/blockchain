@@ -3,14 +3,12 @@ import ReactDOM from 'react-dom/client'
 
 import App from './App'
 import './index.css'
-import { TradeinfoProvider } from './context/TradeinfoContext';
-
+import { TradeInfoProvider } from './context/tradeInfoContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <TradeinfoProvider>
+    <TradeInfoProvider>
       <React.StrictMode>
         <App />
       </React.StrictMode>
-    </TradeinfoProvider>
-
+    </TradeInfoProvider>
 )

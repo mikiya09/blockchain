@@ -1,18 +1,16 @@
 
-
-import {Top} from './components';
-
+import { Loader, Top, Mid, Bottom } from './components';
 
 const App = () => {
-
     return (
-        <div className="outermost-box">
-            <div className="top-box">
-                <Top />
-            </div>
-
+    
+        <div className="main-box">
+            <Top />
+            <Mid />
+            <Bottom />
         </div>
     );
 }
+
 
 export default App;
