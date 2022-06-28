@@ -69,7 +69,7 @@ const Top = () => {
                 <h3>Balance in the Contract: </h3>
                 <h3>add new type request</h3>
                 <Input placeholder="new type" name="newType" type="text" handleChange={handleAddType}/>
-                <Input placeholder="type price" name="typePrice" type="number" handleChange={handleAddType}/>
+                <Input placeholder="base price" name="typePrice" type="number" handleChange={handleAddType}/>
                 {isLoading ? (
                     <Loader />
                 ) : (

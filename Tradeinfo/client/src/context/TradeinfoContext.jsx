@@ -126,9 +126,15 @@ export const TradeInfoProvider = ({ children }) => {
     }
 
 
+
+  
+
+
     // add type: since we have owner variables, first check if currentAccount == owner, if not return alert
     // currentAccount is set to acccounts[0] through function setCurrentAccount in checkIfWalletConnected function
     // owner is set when smart contract is deployed
+
+    // send type
     const sendType = async () => {
         
         try {
@@ -138,7 +144,20 @@ export const TradeInfoProvider = ({ children }) => {
             if (!ethereum) return alert("Please install metamask");
             if( currentAccount != owner ) return alert("Only Owner can add type");
 
+
             const { newType, typePrice } = typeData;
+
+            // check if new type is repetitive
+            // loop throw the nested array, and use key to locate type information
+            for (const [key, value] of Object.entries(types)) {
+                // console.log(value["newType"]);
+                // console.log(newType);
+                if (newType == value["newType"]) {
+                    alert("repetitive type");
+                    throw Error("repetitive type");
+                }
+            } 
+
             const tradeInfoContract = getEthereumContract();
             const parsedAmount = ethers.utils.parseEther(typePrice);
 
@@ -164,14 +183,15 @@ export const TradeInfoProvider = ({ children }) => {
             const tradeInfoContract = getEthereumContract();
             const availableTypes = await tradeInfoContract.getAllType();
 
+            console.log("available Types");
             console.log(availableTypes);
             const structuredTypes = availableTypes.map((types) => ({
                 
                 newType: types.typeName,
                 typePrice: parseInt(types.typePrice._hex) / (10 ** 18)
-
             }))
-
+        
+            console.log("structed Types");
             console.log(structuredTypes);
             setTypes(structuredTypes);
 
@@ -193,6 +213,12 @@ export const TradeInfoProvider = ({ children }) => {
         setInfoData((prevState) => ({ ...prevState, [name]: e.target.value }));
     }
 
+
+
+    // make sure users don't upload different/same information under the same categories that they had already did
+    // ex: OCD from [00000], this [00000] cannot upload info under OCD again, if they perform something like that raise error
+    // raise alert
+
     // send info
     const sendInfo = async () => {
 
@@ -201,6 +227,22 @@ export const TradeInfoProvider = ({ children }) => {
             if (!ethereum) return alert("Please install metamask");
 
             const { yourType, detail, yourAddress } = infoData;
+
+
+            // check repetitive uploading under same type by user: 
+            // 1. check if address exist --> 2. check if type associated with that type exist
+
+            for (const [key, value] of Object.entries(information)) {
+                // check address
+                if (yourAddress == value["yourAddress"]) {
+                    // check type
+                    if (yourType == value["yourType"]) {
+                        alert("user cannot repetitively upload under same the type");
+                        throw Error("repetitive upload under same type");
+                    }
+                }
+            }
+
             // get contract 
             const tradeInfoContract = getEthereumContract();
 
@@ -229,6 +271,7 @@ export const TradeInfoProvider = ({ children }) => {
             const tradeInfoContract = getEthereumContract();
             const availableInfo = await tradeInfoContract.getAllInfo();
 
+            console.log("available Info");
             console.log(availableInfo);
             const structuredInfo = availableInfo.map((information) => ({
 
@@ -238,13 +281,13 @@ export const TradeInfoProvider = ({ children }) => {
 
             }))
 
+            console.log("structed Info");
             console.log(structuredInfo);
             setInformation(structuredInfo);
 
         } catch (error) {
 
         }
-
     }
 
 
@@ -266,6 +309,9 @@ export const TradeInfoProvider = ({ children }) => {
     }
 
 
+    // console.log("transaction data");
+    // console.log(transactionData);
+
     // bottom: send transaction
     const sendTransaction = async () => {
 
@@ -274,6 +320,19 @@ export const TradeInfoProvider = ({ children }) => {
             if(!ethereum) return alert("Please install metamask");
 
             const { addressTo, typePrice, rating, message } = transactionData;
+
+            // check what's the rating score
+            if (rating < 6) {
+                console.log(rating);
+                alert("To: "+ addressTo + "\nScore: " 
+                      + rating + "\nMessage From You: " 
+                      + message + "\n\nThreshold Score: 6"
+                      + "\n--------------------"
+                      + "\nYour Transaction is under review!");
+                throw Error("Low Score Error");
+            } 
+
+
             // provider, singer, your contract getting it from above function
             const tradeInfoContract = getEthereumContract();
             const parsedAmount = ethers.utils.parseEther(typePrice);
@@ -320,6 +379,7 @@ export const TradeInfoProvider = ({ children }) => {
             // const owner = await tradeInfoContract.owner();
             // setOwner(owner);
 
+            console.log("Available Transactions");
             console.log(availableTransactions);
 
             const structuredTransactions = availableTransactions.map((transactions) => ({
@@ -332,6 +392,7 @@ export const TradeInfoProvider = ({ children }) => {
 
             }))
 
+            console.log("structed Transactions");
             console.log(structuredTransactions);
             setTransactions(structuredTransactions);
 
