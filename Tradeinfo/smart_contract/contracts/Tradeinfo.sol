@@ -39,7 +39,6 @@ contract tradeInfo {
         // check requirement (later)
         // 1. whether is owner
         // 2. whether type already exist
-        // https://blog.soliditylang.org/2021/04/21/custom-errors/
         typeCount += 1; // counter add one
         typeCollection.push(TypeStruct(typeName, typePrice));  // push type into array
         typeExist[typeName] = true; // set true if type after upload once
@@ -68,7 +67,6 @@ contract tradeInfo {
         string detail;
         address yourAddress;
     }
-    //
     event SendInfo(string yourType, string detail, address yourAddress);
 
     // array of InfoStruct
